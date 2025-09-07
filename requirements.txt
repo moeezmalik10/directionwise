@@ -1,0 +1,14 @@
+Core dependencies for Career Counselor app
+numpy>=1.26.0
+pandas>=1.5.0
+streamlit>=1.36.0
+sqlalchemy>=2.0.0
+plotly>=5.24.0
+spacy>=3.8.0
+nltk>=3.9.0
+scikit-learn>=1.3.0
+reportlab>=3.6.12
+
+Install spaCy English model after installing spacy:
+python -m spacy download en_core_web_sm
+
