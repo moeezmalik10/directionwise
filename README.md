@@ -4,31 +4,31 @@ A modern career guidance platform built with Streamlit. It helps you discover th
 
 📋 Table of Contents
 
-Project Overview
+1.Project Overview
 
-Development Process
+2.Development Process
 
-Installation and Setup
+3.Installation and Setup
 
-Running the Application
+4.Running the Application
 
-Project Structure
+5.Project Structure
 
-Features
+6.Features
 
-Technical Architecture
+7.Technical Architecture
 
-Usage Guide
+8.Usage Guide
 
-Troubleshooting
+9.Troubleshooting
 
-Who It’s For
+10.Who It’s For
 
-License
+11.License
 
-Contributing
+12.Contributing
 
-Support
+13.Support
 
 🎯 Project Overview
 
@@ -37,7 +37,7 @@ DIRECTION WISE is a career guidance platform. It combines AI analysis, interacti
 🏗️ Development Process
 Phase 1: Foundation and Core Setup
 
-Project initialization
+ Project initialization
 
 Python environment with Streamlit
 
@@ -181,13 +181,21 @@ Create an account or log in.
 Explore your options.
 
 📁 Project Structure
+
 direction-wise/
+
 ├── app.py                    # Main Streamlit application
+
 ├── counselor_core.py         # Core backend functions and models
+
 ├── career_counselor.db       # SQLite database generated at runtime
+
 ├── requirements.txt          # Python dependencies
+
 ├── README.md                 # Project documentation
+
 └── __pycache__/              # Auto generated cache files
+
 Key files
 
 app.py
