@@ -16,7 +16,7 @@ from collections import Counter
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import spacy
+# import spacy  # Removed for Streamlit Cloud compatibility
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.decomposition import LatentDirichletAllocation
@@ -297,12 +297,24 @@ try:
 except LookupError:
     nltk.download('stopwords')
 
-# Load spaCy model
+# Initialize NLTK components (replacing spaCy)
 try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    st.error("spaCy English model not found. Please install it with: python -m spacy download en_core_web_sm")
-    st.stop()
+    nltk.download('punkt', quiet=True)
+    nltk.download('stopwords', quiet=True)
+    nltk.download('wordnet', quiet=True)
+    nltk.download('omw-1.4', quiet=True)
+    nltk.download('averaged_perceptron_tagger', quiet=True)
+    nltk.download('maxent_ne_chunker', quiet=True)
+    nltk.download('words', quiet=True)
+except:
+    pass
+
+# Initialize NLTK components
+from nltk.stem import WordNetLemmatizer
+from nltk.chunk import ne_chunk
+from nltk.tag import pos_tag
+
+lemmatizer = WordNetLemmatizer()
 
 # Page configuration
 st.set_page_config(
@@ -725,9 +737,18 @@ def extract_skills_from_text(text):
     stop_words = set(stopwords.words('english'))
     filtered_tokens = [token for token in tokens if token not in stop_words and len(token) > 2]
     
-    # Use spaCy for named entity recognition
-    doc = nlp(text)
-    entities = [ent.text for ent in doc.ents if ent.label_ in ['ORG', 'PERSON', 'WORK_OF_ART']]
+    # Use NLTK for named entity recognition (replacing spaCy)
+    try:
+        tokens = word_tokenize(text)
+        pos_tags = pos_tag(tokens)
+        chunks = ne_chunk(pos_tags)
+        entities = []
+        for chunk in chunks:
+            if hasattr(chunk, 'label'):
+                if chunk.label() in ['ORGANIZATION', 'PERSON', 'GPE']:
+                    entities.append(' '.join([token for token, pos in chunk.leaves()]))
+    except:
+        entities = []
     
     # Combine tokens and entities
     all_skills = list(set(filtered_tokens + entities))

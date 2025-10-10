@@ -22,8 +22,16 @@ try:
 except Exception:
     _surprise_available = False
 
+# Database configuration for cloud deployment
+import os
 DB_PATH = 'career_counselor.db'
-engine = create_engine(f'sqlite:///{DB_PATH}', echo=False, future=True)
+DATABASE_URL = os.getenv('DATABASE_URL', f'sqlite:///{DB_PATH}')
+
+# Handle PostgreSQL URL format for cloud databases
+if DATABASE_URL.startswith('postgres://'):
+    DATABASE_URL = DATABASE_URL.replace('postgres://', 'postgresql://', 1)
+
+engine = create_engine(DATABASE_URL, echo=False, future=True)
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
 
